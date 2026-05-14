@@ -1,26 +1,10 @@
-// import { readFile } from 'fs'
-const fs = require('fs')
-const trataErros = require('./erros/funcoesErros')
-const caminho = process.argv
-const link = caminho[2]
-
-fs.readFile(link, 'utf-8',(erro,texto)=>{
-    try{
-        if (erro) throw erro
-        contaPalavras(texto)
-    }catch{
-        trataErros(erro)
-    }
-    
-    
-})
-function contaPalavras(texto){
+export function contaPalavras(texto){
     const paragrafos = extraiParagrafos(texto)
     const contagem = paragrafos.flatMap((paragrafo)=>{
         if(!paragrafo) return []
         return verificaPalavrasDuplicadas(paragrafo)
     })
-    console.log(contagem)
+    return contagem
 
 }
 function extraiParagrafos(texto){
