@@ -45,4 +45,9 @@ app.put('/livros/:id',(req,res)=>{
 
 })
 
+app.delete('/livros/:id',(req,res)=>{
+    const index = buscaLivro(req.params.id)
+    livros.splice(index)
+    res.status(200).json(livros)
+})
 export default app
