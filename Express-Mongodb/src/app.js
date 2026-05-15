@@ -1,6 +1,6 @@
 import express from 'express'
 import conectaNaDataBase  from './config/dbConnect.js';
-
+import routes from './routes/index.js';
 const conexao = await conectaNaDataBase()
 
 conexao.on('error',(erro)=>{
@@ -11,32 +11,7 @@ conexao.once('open',()=>{
 })
 
 const app = express();
-app.use(express.json())
-
-
-const livros = [
-    {
-        id: 1,
-        titulo:"O Senhor Dos Aneis"
-    },
-    {
-        id: 2,
-        titulo: "O Hobbit"
-    }
-
-]
-function buscaLivro(id){
-    return livros.findIndex(livro=>{
-        return livro.id === Number(id)
-    })
-}
-app.get("/", (req,res)=>{
-    res.status(200).send("Curdo De Node.js")
-})
-
-app.get("/livros", (req,res)=>{
-    res.status(200).json(livros)
-})
+routes(app)
 
 app.get("/livros/:id",(req,res)=>{
     const index = buscaLivro(req.params.id)
