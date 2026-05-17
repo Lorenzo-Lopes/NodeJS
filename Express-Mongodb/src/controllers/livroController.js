@@ -1,3 +1,4 @@
+import { autor } from "../models/Autor.js";
 import livro from "../models/Livro.js";
 
 class LivroController{
@@ -22,14 +23,17 @@ class LivroController{
     }
     
     static async cadastrarLivro(req,res){
+        const novoLivro= req.body
         try{
-            const novoLivro = await livro.create(req.body)
+            const autorEncontrado = await autor.findById(novoLivro.autor)
+            const livroCompleto = {...novoLivro,autor:{...autorEncontrado._doc}}
+            const livroCriado = await livro.create(livroCompleto)
             res.status(201).json({
                 mesage:'Criado com sucesso',
-                livro: novoLivro
+                livro: livroCriado
             })
         }catch(erro){
-            // res.status(500).json ({mesage: `${erro.mesage} - Falha ao tentar cadastrar novo livro`})
+             res.status(500).json ({mesage: `${erro.mesage} - Falha ao tentar cadastrar novo livro`})
             console.log(erro)
         }
     }
@@ -50,6 +54,15 @@ class LivroController{
             res.status(200).json({message: "livro excluido com sucesso."})
         }catch(erro){
             res.status(500).json({ mesage: `${erro.mesage} - Nao foi possivel atualizar o exclusão.`})
+        }
+    }
+    static async listarLivrosPorEditora(req,res){
+        const editora = req.query.editora;
+        try{
+            const livrosPorEditora = await livro.find({editora:editora})
+            res.status(200).json(livrosPorEditora)
+        }catch(erro){
+            res.status(500).json({message :`${erro} - Falha na busca`})
         }
     }
 }
