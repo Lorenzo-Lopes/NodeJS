@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv"
 import mongoose from "mongoose"
 dotenv.config()
 const uri = process.env.MONGO_CONNECT
