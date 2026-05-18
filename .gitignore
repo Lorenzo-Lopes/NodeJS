@@ -3,3 +3,5 @@ ContadordePalavras/resultado/
 ContadordePalavras/comandoEXE.txt
 node_modules
 .env
+Express-Mongodb-2/node_modules
+Express-Mongodb-2/.env
