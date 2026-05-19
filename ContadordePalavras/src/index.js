@@ -15,6 +15,7 @@ function extraiParagrafos(texto) {
 }
 
 function limpaPalavras(palavra) {
+  // eslint-disable-next-line no-useless-escape
   return palavra.replace(/[.,\'/#!$%\^&\*;:{}=\-_`~()]/g, "");
 }
 function verificaPalavrasDuplicadas(texto) {
